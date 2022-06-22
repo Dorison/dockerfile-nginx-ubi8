@@ -1,0 +1,21 @@
+user nginx;
+worker_processes auto;
+events {
+    worker_connections 1024;
+}
+http {
+    server {
+        listen       $PORT default_server;
+           }
+    server{
+        listen              $PORT_HTTPS ssl;
+        ssl_certificate     $CRT;
+        ssl_certificate_key $KEY;
+        server_name  _;
+        root         /usr/share/nginx/html;
+        location /static/
+        {
+        root $STATIC;
+        }
+    }
+}
